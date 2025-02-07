@@ -89,24 +89,6 @@ async function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// NEW HELPER: Get the time of the last transaction between two addresses
-// async function fetchAccountHistory(address: string, count: number = 10) {
-//   const response = await fetch("https://app.natrium.io/api", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       action: "account_history",
-//       account: address,
-//       count: count.toString(),
-//       raw: "true",
-//     }),
-//   });
-
-//   const data = await response.json();
-//   if (data.error) throw new Error(`Account history error: ${data.error}`);
-//   return data.history || [];
-// }
-
 async function getLastTransactionTime(fromGuy: string, toGuy: string): Promise<string> {
   try {
     // Fetch account history using Bun.fetch()
@@ -142,24 +124,6 @@ async function getLastTransactionTime(fromGuy: string, toGuy: string): Promise<s
     return `Error: ${error.message}`;
   }
 }
-
-// --- Example usage:
-// (async () => {
-//   const fromGuy = "nano_338zbj6zofjkzmjzpngxpr7owooir7dbygmi7pdi1c1j5dr7szipzgtnosog";
-//   const toGuy = "nano_3qzjz9jncuz1pgcceid3mcn5tgkjfx8pg65j66racs3ondxpxcdwm5yz9iyt";
-
-//   console.log(await getLastTransactionTime(fromGuy, toGuy));
-// })();
-
-// // --- Example usage:
-// (async () => {
-//   const sender = "nano_338zbj6zofjkzmjzpngxpr7owooir7dbygmi7pdi1c1j5dr7szipzgtnosog";
-//   const receiver = "nano_3qzjz9jncuz1pgcceid3mcn5tgkjfx8pg65j66racs3ondxpxcdwm5yz9iyt";
-//   console.log(await getLastTransactionTime(sender, receiver));
-// })();
-
-
-// --- Existing functions for processing transactions (receiveFunds and transferAllFunds) remain unchanged ---
 
 async function receiveFunds(privateKey: string, pendingTx: { hash: string, amount: string }): Promise<{ hash: string, block: any }> {
   const publicKey = await nanocurrency.derivePublicKey(privateKey);
@@ -373,21 +337,6 @@ serve({
         let concatenated_encrypted_string = concatenateStrings(derivedAddressofnanoPrivatekey, baoHash, encrypted);
         console.log(concatenated_encrypted_string)
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         return new Response(
           `<h2>BAO Hash: ${baoHash}<br>
